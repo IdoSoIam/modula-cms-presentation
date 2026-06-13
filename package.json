@@ -1,0 +1,15 @@
+{
+  "name": "modula-cms-presentation",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "agent:start": "node ./scripts/start-agent.mjs",
+    "agent:status": "node ./scripts/agent-status.mjs",
+    "agent:stop": "node ./scripts/stop-agent.mjs",
+    "deploy:local": "node ./scripts/deploy-release.mjs",
+    "start": "node ./scripts/start-runtime.mjs",
+    "start:foreground": "node ./current/.output/server/index.mjs",
+    "stop": "node ./scripts/stop-runtime.mjs",
+    "status": "node ./scripts/runtime-status.mjs"
+  }
+}

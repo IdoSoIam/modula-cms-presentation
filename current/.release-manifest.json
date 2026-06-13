@@ -1,0 +1,53 @@
+{
+  "version": "0.1.20",
+  "builtAt": "2026-06-12T10:35:53.814Z",
+  "packageName": "modula-cms",
+  "includesUpdateScript": true,
+  "migrations": [
+    {
+      "name": "0001_init.sql",
+      "checksum": "3ab64cd212e013aa5ba6aa232d00eb6776800d83904e74d426c056dc0868f7e8"
+    },
+    {
+      "name": "0002_drop_image_data.sql",
+      "checksum": "db9d09326ad9381d6dc3a2a06f48c14b653a012ad6d30165b3079d8872aa10c1"
+    },
+    {
+      "name": "0003_add_cms_foundations.sql",
+      "checksum": "2c2d157384fd149e295700bcb1d27aebec9bc2ec233731737d849a34329e800c"
+    },
+    {
+      "name": "0004_add_cms_page_specialrole.sql",
+      "checksum": "3a9d5586e94bea0e2a1d334d1c1fec8bec6bed675f73d9d0a898678c21d7fd30"
+    },
+    {
+      "name": "0005_add_image_variants_and_usages.sql",
+      "checksum": "6681b7dcc70998d3328e0c866445faed274167b6a359663003776634417fb2bc"
+    },
+    {
+      "name": "0006_add_roles_and_events.sql",
+      "checksum": "8ba9f897225d62c325f1a8b15411c6b730bff9b6c97bceb474188898ea98a485"
+    },
+    {
+      "name": "0007_add_member_roles_and_event_audience_split.sql",
+      "checksum": "472c729279b2d2850d725e09b7bb05950ead4a7c9f4c5843c35f1361081f0ff8"
+    },
+    {
+      "name": "0008_add_event_recurrence_and_occurrences.sql",
+      "checksum": "d89a0c8ba451e81741d5cb90ae0344f0e81eaf94d982403d37d5c1155cabeeed"
+    },
+    {
+      "name": "0009_add_password_setup_tokens.sql",
+      "checksum": "5346e59f30b845dd5d52a50866647b82206a314b3caa79b59b1cdfa627d3d75d"
+    },
+    {
+      "name": "0010_add_cms_update_jobs.sql",
+      "checksum": "c9313fb5b3fb86d69416f4bd29ef237ca819c905e3c9ffa700fa2ec8c386e94f"
+    }
+  ],
+  "rollbackPolicy": {
+    "fast": "code-only-if-schema-compatible",
+    "full": "code-and-database-restore",
+    "fullRestoreWarning": "A complete rollback restores the database backup created before the update and discards any data added afterwards."
+  }
+}

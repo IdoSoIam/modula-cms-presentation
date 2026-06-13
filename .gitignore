@@ -1,0 +1,14 @@
+.nuxt
+.output
+node_modules
+.env
+cms.project.generated.ts
+.modula-agent
+.release-stage
+dist-releases
+current/.output
+shared/config/.env
+shared/data
+shared/run
+shared/uploads
+releases
