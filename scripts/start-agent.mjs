@@ -1,15 +1,17 @@
-import { mkdir, readFile, rm, writeFile } from 'node:fs/promises'
+import { copyFile, mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
 import { spawn } from 'node:child_process'
 import http from 'node:http'
 
 const root = process.cwd()
-const agentEntry = path.join(root, 'current', 'scripts', 'update-agent.mjs')
+const currentAgentEntry = path.join(root, 'current', 'scripts', 'update-agent.mjs')
+const agentRuntimeDir = path.join(root, '.modula-agent', 'runtime')
+const agentEntry = path.join(agentRuntimeDir, 'update-agent.mjs')
 const envFile = path.join(root, '.env')
 const pidFile = path.join(root, 'shared', 'run', 'agent.pid')
 
-if (!existsSync(agentEntry)) {
+if (!existsSync(currentAgentEntry)) {
   console.error('Missing update script in current/scripts/update-agent.mjs')
   process.exit(1)
 }
@@ -29,6 +31,8 @@ if (await isAgentReachable(env.CMS_AGENT_HOST, env.CMS_AGENT_PORT, token)) {
 }
 
 await mkdir(path.dirname(pidFile), { recursive: true })
+await mkdir(agentRuntimeDir, { recursive: true })
+await copyFile(currentAgentEntry, agentEntry)
 
 const started = process.platform === 'win32'
   ? await startWindowsDetachedProcess()

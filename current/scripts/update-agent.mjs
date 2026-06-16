@@ -58,7 +58,7 @@ async function loadEnv(file) {
 function resolveCmsDatabasePath() {
   const connectionString = env.DATABASE_URL?.startsWith('file:')
     ? env.DATABASE_URL
-    : 'file:./prisma/local.db'
+    : 'file:./.data/sqlite/local.db'
   const rawPath = connectionString.replace(/^file:/, '')
   const baseDir = currentDir
   return path.isAbsolute(rawPath)
@@ -412,20 +412,20 @@ async function migrateLegacyJobs() {
 
   if (existsSync(legacyJobsDbFile)) {
     try {
-      const legacyDb = new DatabaseSync(legacyJobsDbFile)
+      const legacyJobsDb = new DatabaseSync(legacyJobsDbFile)
       try {
-        const hasJobsTable = legacyDb.prepare(
+        const hasJobsTable = legacyJobsDb.prepare(
           "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'update_jobs'"
         ).get()
         if (hasJobsTable) {
-          const rows = legacyDb.prepare(
+          const rows = legacyJobsDb.prepare(
             `SELECT id, instance_slug, version, status, metadata_json, created_at, updated_at
              FROM update_jobs
              ORDER BY created_at DESC`
           ).all()
 
           for (const row of rows) {
-            const logs = legacyDb.prepare(
+            const logs = legacyJobsDb.prepare(
               `SELECT id, deployment_id, level, message, created_at
                FROM update_job_logs
                WHERE deployment_id = ?
@@ -451,7 +451,7 @@ async function migrateLegacyJobs() {
           }
         }
       } finally {
-        legacyDb.close()
+        legacyJobsDb.close()
       }
     } catch {}
   }
@@ -537,6 +537,29 @@ function inferAlreadyApplied(file) {
       return tableExists('Image') && !columnExists('Image', 'data')
     case '0003_add_cms_foundations.sql':
       return tableExists('CmsPage') && tableExists('CmsNavigationItem')
+    case '0004_add_cms_page_specialrole.sql':
+      return columnExists('CmsPage', 'specialRole')
+    case '0005_add_image_variants_and_usages.sql':
+      return tableExists('ImageVariant') && tableExists('ImageUsage')
+    case '0006_add_roles_and_events.sql':
+      return tableExists('Role')
+        && tableExists('RolePermission')
+        && tableExists('Event')
+        && tableExists('EventPublicReservation')
+        && tableExists('EventInternalParticipation')
+        && columnExists('User', 'roleId')
+    case '0007_add_member_roles_and_event_audience_split.sql':
+      return tableExists('MemberRole')
+        && tableExists('UserMemberRole')
+        && tableExists('EventAudienceMemberRole')
+    case '0008_add_event_recurrence_and_occurrences.sql':
+      return tableExists('EventOccurrence')
+        && columnExists('Event', 'kind')
+        && columnExists('Event', 'recurrenceType')
+    case '0009_add_password_setup_tokens.sql':
+      return tableExists('PasswordSetupToken')
+    case '0010_add_cms_update_jobs.sql':
+      return tableExists('cms_update_jobs') && tableExists('cms_update_job_logs')
     default:
       return false
   }

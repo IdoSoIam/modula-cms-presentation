@@ -7,7 +7,7 @@ Cette arborescence simule une instance de production.
 - `current/` : version active déployée
 - `releases/` : versions extraites, utiles pour rollback
 - `.env` : configuration runtime persistante
-- `shared/data/` : données persistantes
+- `shared/data/` : base SQLite et données persistantes hors release
 - `shared/uploads/` : uploads persistants
 - `shared/run/` : PID et fichiers de service
 

@@ -6,6 +6,7 @@ cms.project.generated.ts
 .modula-agent
 .release-stage
 dist-releases
+.data
 current/.output
 shared/config/.env
 shared/data
