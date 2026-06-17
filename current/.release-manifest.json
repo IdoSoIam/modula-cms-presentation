@@ -1,6 +1,6 @@
 {
-  "version": "0.1.33",
-  "builtAt": "2026-06-16T17:54:30.921Z",
+  "version": "0.1.35",
+  "builtAt": "2026-06-17T12:20:42.781Z",
   "packageName": "modula-cms",
   "includesUpdateScript": true,
   "migrations": [
