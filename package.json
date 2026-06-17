@@ -1,6 +1,7 @@
 {
   "name": "modula-cms-presentation",
   "private": true,
+  "license": "GPL-3.0-only",
   "type": "module",
   "scripts": {
     "agent:start": "node ./scripts/start-agent.mjs",

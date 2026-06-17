@@ -5,6 +5,7 @@ node_modules
 cms.project.generated.ts
 .modula-agent
 .release-stage
+current.previous
 dist-releases
 .data
 current/.output
